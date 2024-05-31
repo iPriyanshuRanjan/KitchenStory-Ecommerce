@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment - Kitchen Story</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}">Kitchen Story</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cart}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="container mt-5">
+    <h1>Payment Page</h1>
+    <p>Please enter your payment details to complete the purchase.</p>
+    <p>Full Name: <strong th:text="${fullName}">Full Name</strong></p>
+    <p>Address: <strong th:text="${address}">Address</strong></p>
+    <p>Total Amount: <strong th:text="'₹' + ${total}">₹0.00</strong></p>
+    <form th:action="@{/order/confirm}" method="post">
+        <input type="hidden" name="fullName" th:value="${fullName}">
+        <input type="hidden" name="address" th:value="${address}">
+        <input type="hidden" name="total" th:value="${total}">
+        <input type="hidden" name="paymentMethod" th:value="${paymentMethod}">
+        <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" th:value="${cardNumber}">
+        </div>
+        <div class="form-group">
+            <label for="cardName">Name on Card</label>
+            <input type="text" class="form-control" id="cardName" name="cardName" th:value="${cardName}">
+        </div>
+        <div class="form-group">
+            <label for="expiryDate">Expiry Date</label>
+            <input type="text" class="form-control" id="expiryDate" name="expiryDate" th:value="${expiryDate}" placeholder="MM/YY">
+        </div>
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" class="form-control" id="cvv" name="cvv" th:value="${cvv}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Pay Now</button>
+    </form>
+</div>
+</body>
+</html>

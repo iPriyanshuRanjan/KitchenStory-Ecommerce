@@ -1,0 +1,18 @@
+.navbar-nav .nav-link {
+    color: #000;
+    margin-right: 10px;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+    color: #000;
+}
+
+.navbar-brand {
+    margin-right: auto;
+}
+
+/* Ensure the dropdown menu is aligned correctly within the viewport */
+.navbar-nav .dropdown-menu-right {
+    right: 0;
+    left: auto;
+}

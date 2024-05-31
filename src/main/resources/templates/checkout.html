@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - Kitchen Story</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}">Kitchen Story</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/cart}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="container mt-5">
+    <h1>Checkout</h1>
+    <form th:action="@{/order/confirm}" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Shipping Information</h2>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" name="state" required>
+                </div>
+                <div class="form-group">
+                    <label for="zip">Zip Code</label>
+                    <input type="text" class="form-control" id="zip" name="zip" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>Order Summary</h2>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed" th:each="item : ${cartItems}">
+                        <div>
+                            <h6 class="my-0" th:text="${item.foodItem.name}">Product Name</h6>
+                            <small class="text-muted" th:text="'Quantity: ' + ${item.quantity}">Quantity</small>
+                        </div>
+                        <span class="text-muted" th:text="'₹' + ${item.foodItem.price * item.quantity}">Price</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (INR)</span>
+                        <strong th:text="'₹' + ${totalValue}">₹0.00</strong>
+                    </li>
+                </ul>
+                <h2>Payment Method</h2>
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select class="form-control" id="paymentMethod" name="paymentMethod" required>
+                        <option value="creditCard">Credit Card</option>
+                        <option value="debitCard">Debit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="cashOnDelivery">Cash on Delivery</option>
+                    </select>
+                </div>
+                <div id="creditCardInfo" class="payment-info" style="display: none;">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="cardName">Name on Card</label>
+                        <input type="text" class="form-control" id="cardName" name="cardName">
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" name="cvv">
+                    </div>
+                </div>
+                <!-- Hidden input for total value -->
+                <input type="hidden" id="total" name="total" th:value="${totalValue}">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Place Order</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById('paymentMethod').addEventListener('change', function () {
+        var paymentInfo = document.getElementById('creditCardInfo');
+        if (this.value === 'creditCard' || this.value === 'debitCard') {
+            paymentInfo.style.display = 'block';
+        } else {
+            paymentInfo.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
