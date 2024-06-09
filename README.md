@@ -1,8 +1,14 @@
 Kitchen Story:
 E-Commerce Portal for Food Items
-Project 1: Project Description
+
+
+Project: Project Description
+
+
 Project Objective
 The objective of the Kitchen Story project is to develop an e-commerce portal that enables users to shop for basic food items online. The website will provide a seamless shopping experience for customers and an efficient management system for administrators. Below is a detailed description of the features required for both the customer-facing website and the admin backend.
+
+
 Customer-Facing Features
 1.
 Search Form on Home Page:
@@ -55,6 +61,9 @@ Administrators will have the functionality to add new food items to the inventor
 They can also remove items that are no longer available or update existing items with new information.
 
 A writeup or description can be created for each item to provide detailed information to customers.
+
+
+
 Technical Implementation
 The project will be developed using Java Spring Boot for the backend and Thymeleaf for templating. The front end will utilize HTML, CSS (with Bootstrap for styling), and JavaScript for dynamic functionality. The database will be managed using MySQL, where all food items, user details, and orders will be stored.
 Key Components
@@ -84,6 +93,9 @@ Users: Stores user information including credentials and order history.
 Items: Stores details of available food items.
 
 Orders: Records customer orders and payment details.
+
+
+
 At the end
 The Kitchen Story project aims to create an efficient and user-friendly e-commerce portal for food items. By providing robust features for both customers and administrators, the website will streamline the shopping experience and ensure efficient inventory management. The integration of secure payment processing and dynamic search functionality will further enhance the usability and reliability of the portal.
 Thanks
